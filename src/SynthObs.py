@@ -9,6 +9,7 @@
 import numpy as np
 import logging
 from BayHunter import Targets
+import os
 
 logger = logging.getLogger()
 
@@ -106,7 +107,7 @@ class SynthObs():
 
         if '%s' not in outfile:
             name, ext = os.path.splitext(outfile)
-            outfile = name + '_%s.'+ext
+            outfile = name + '_%s' + ext # ext already contains the dot on a mac
 
         for ref in data.keys():
             x, y = data[ref]
