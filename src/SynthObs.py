@@ -111,10 +111,13 @@ class SynthObs():
 
         for ref in data.keys():
             x, y = data[ref]
-            with open(outfile % ref, 'w') as f:
-                for i in range(len(x)):
-                    f.write('%.4f\t%.4f\n' % (x[i], y[i]))
-            logger.info('Data file saved: %s' % outfile % ref)
+            if isinstance(x, np.ndarray) and len(x) > 0: # check if targets exist
+                with open(outfile % ref, 'w') as f:
+                    for i in range(len(x)):
+                        f.write('%.4f\t%.4f\n' % (x[i], y[i]))
+                logger.info('Data file saved: %s' % outfile % ref)
+            else:
+                logger.info('Data file not saved (no x): %s' % outfile % ref)
 
     @staticmethod
     def save_model(h, vs, vpvs=1.73, outfile=None):
